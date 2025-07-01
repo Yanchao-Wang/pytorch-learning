@@ -3,3 +3,8 @@ matplotlib
 torch
 torchvision
 pandas
+d2l
+jupyter
+scikit-learn
+tensorboard
+torchsummary

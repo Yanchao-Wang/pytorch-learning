@@ -1,5 +1,5 @@
 {
-  "name": "PyTorch CPU DevContainer",
+  "name": "PyTorch CPU DevContainer with D2L",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
@@ -11,7 +11,7 @@
     "ms-python.python",
     "ms-toolsai.jupyter"
   ],
-  "forwardPorts": [],
-  "postCreateCommand": "pip install -r requirements.txt || true",
+  "forwardPorts": [8888],
+  "postCreateCommand": "pip install -r requirements.txt || true && echo '🎉 环境准备完成！使用 ./start-jupyter.sh 启动 Jupyter'",
   "remoteUser": "vscode"
 }

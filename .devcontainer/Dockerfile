@@ -17,15 +17,26 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     htop \
     tree \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 PyTorch CPU 版本和其他常用包
 RUN pip install --upgrade pip setuptools wheel && \
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install pandas matplotlib jupyterlab scikit-learn tensorboard torchsummary
+    pip install pandas matplotlib jupyterlab scikit-learn tensorboard torchsummary d2l
 
 # 创建常用目录结构
-RUN mkdir -p /workspace/{data,models,notebooks,scripts,runs}
+RUN mkdir -p /workspace/{data,models,notebooks,scripts,runs,tutorials}
+
+# 下载和安装 d2l 中文教程（使用WORKDIR确保目录存在）
+WORKDIR /workspace/tutorials
+RUN wget https://zh-v2.d2l.ai/d2l-zh.zip && \
+    unzip d2l-zh.zip && \
+    rm d2l-zh.zip && \
+    echo "D2L 教程已下载到 /workspace/tutorials/d2l-zh"
+
+# 重新设置回工作目录
+WORKDIR /workspace
 
 # 创建默认用户并设置权限
 RUN useradd -m vscode && \

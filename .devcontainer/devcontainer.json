@@ -1,21 +1,17 @@
 {
-  "name": "Python Development Environment",
+  "name": "PyTorch CPU DevContainer",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
-      },
-      "extensions": [
-        "ms-python.python"
-      ]
-    }
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
   },
-  "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-  "postCreateCommand": "pip install -r /workspace/requirements.txt",
-  "shutdownAction": "stopContainer",
-  "remoteUser": "root"
+  "extensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter"
+  ],
+  "forwardPorts": [],
+  "postCreateCommand": "pip install -r requirements.txt || true",
+  "remoteUser": "vscode"
 }
